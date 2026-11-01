@@ -1,0 +1,80 @@
+/* =====================================================================
+   dashboard.css - CONTEÚDO DAS TELAS INTERNAS
+   Indicadores, grades de cartões, filtros, paginação e boas-vindas.
+   ===================================================================== */
+
+/* ---------- Boas-vindas ---------- */
+.boas-vindas__saudacao {
+  font-family: var(--fonte-titulo);
+  font-size: 2.6rem; font-weight: 700; line-height: 1.1;
+  margin-bottom: 8px;
+}
+.boas-vindas__texto { max-width: 46em; color: var(--cor-texto-suave); margin-bottom: 24px; font-size: 1.0625rem; }
+
+.atalhos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.atalho {
+  display: grid; gap: 6px; align-content: start;
+  padding: 22px; border-radius: var(--raio);
+  background: var(--cor-cartao); border: 1px solid #c2c2c2;
+  text-decoration: none; color: var(--cor-texto);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.atalho strong { font-family: var(--fonte-titulo); font-size: 1.6rem; line-height: 1.1; }
+.atalho span { color: var(--cor-texto-suave); font-size: 0.9375rem; }
+.atalho:hover { transform: translateY(-2px); border-color: var(--cor-vermelho-forte); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); }
+
+/* ---------- Barra de ferramentas ---------- */
+.barra-ferramentas {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  gap: 10px 16px; margin-bottom: 16px;
+}
+.barra-ferramentas__texto { color: var(--cor-texto-suave); font-size: 0.9375rem; }
+.barra-ferramentas__botoes { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- Indicadores (KPIs) ---------- */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+.kpis--5 { grid-template-columns: repeat(5, 1fr); }
+
+.kpi {
+  background: var(--cor-cartao);
+  border-radius: var(--raio);
+  border: 1px solid #c2c2c2;
+  border-top: 5px solid var(--cor-preto);
+  padding: 14px 18px 16px;
+  min-width: 0;
+}
+.kpi--ok     { border-top-color: var(--cor-sucesso); }
+.kpi--alerta { border-top-color: #777; }
+.kpi__rotulo { font-size: 0.8125rem; font-weight: 700; color: var(--cor-texto-suave); text-transform: uppercase; letter-spacing: 0.03em; }
+.kpi__valor { font-family: var(--fonte-titulo); font-size: 3rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi__nota { font-size: 0.75rem; color: var(--cor-texto-suave); }
+
+/* Esmaece o conteúdo enquanto carrega */
+.is-loading .kpi__valor { opacity: 0.45; }
+
+/* ---------- Grades ---------- */
+.grade-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.cartao--largo { grid-column: 1 / -1; }
+
+/* ---------- Filtros ---------- */
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px 14px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+.campo--busca { grid-column: span 2; }
+.filtros__novo { justify-self: stretch; }
+.filtros__botoes { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+
+.resumo-filtros { color: var(--cor-texto-suave); font-size: 0.875rem; margin: 0 0 14px; }
+.resumo-filtros:empty { display: none; }
+
+/* ---------- Paginação ---------- */
+.paginacao {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  gap: 10px; margin-top: 14px; font-size: 0.875rem; font-weight: 600;
+}
+.paginacao[hidden] { display: none; }
+.paginacao__botoes { display: flex; align-items: center; gap: 12px; }

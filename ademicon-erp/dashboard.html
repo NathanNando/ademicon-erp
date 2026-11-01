@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resumo geral | ERP Ademicon</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,800&family=Khand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-pagina="dashboard" class="app">
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div class="app__layout">
+    <aside id="menu-lateral" class="menu no-print"></aside>
+
+    <main id="conteudo" class="app__principal">
+      <h1 class="app__titulo">Resumo geral</h1>
+
+      <section class="app__painel" id="painel" aria-busy="true">
+        <div class="barra-ferramentas">
+          <p class="barra-ferramentas__texto">Indicadores calculados com os seus clientes cadastrados.</p>
+          <button type="button" id="btn-recarregar" class="btn btn--pequeno">Atualizar</button>
+        </div>
+
+        <div id="painel-erro" class="msg msg--erro" role="alert" hidden></div>
+
+        <!-- Indicadores -->
+        <section class="kpis" aria-label="Indicadores">
+          <article class="kpi">
+            <p class="kpi__rotulo">Total de clientes</p>
+            <p class="kpi__valor" id="kpi-total">…</p>
+          </article>
+          <article class="kpi kpi--ok">
+            <p class="kpi__rotulo">Clientes ativos</p>
+            <p class="kpi__valor" id="kpi-ativos">…</p>
+          </article>
+          <article class="kpi kpi--alerta">
+            <p class="kpi__rotulo">Clientes inativos</p>
+            <p class="kpi__valor" id="kpi-inativos">…</p>
+          </article>
+          <article class="kpi">
+            <p class="kpi__rotulo">Registros comerciais</p>
+            <p class="kpi__valor" id="kpi-comerciais">…</p>
+            <p class="kpi__nota">Clientes com observações comerciais</p>
+          </article>
+        </section>
+
+        <div class="grade-2">
+          <section class="cartao" aria-labelledby="t-recentes">
+            <h2 id="t-recentes">Últimos clientes cadastrados</h2>
+            <ul class="lista" id="lista-recentes"><li class="vazio">Carregando…</li></ul>
+          </section>
+
+          <section class="cartao" aria-labelledby="t-atividades">
+            <h2 id="t-atividades">Atividades recentes</h2>
+            <ul class="lista" id="lista-atividades"><li class="vazio">Carregando…</li></ul>
+          </section>
+
+          <section class="cartao" aria-labelledby="t-meses">
+            <h2 id="t-meses">Cadastros nos últimos 6 meses</h2>
+            <div id="grafico-meses"><p class="vazio">Carregando…</p></div>
+          </section>
+
+          <section class="cartao" aria-labelledby="t-tipos">
+            <h2 id="t-tipos">Clientes por tipo</h2>
+            <div id="grafico-tipos"><p class="vazio">Carregando…</p></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

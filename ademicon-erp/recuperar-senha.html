@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recuperar senha | ERP Ademicon</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,800&family=Khand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-pagina="recuperar-senha" class="auth">
+  <main class="auth__layout">
+
+    <section class="auth__lateral">
+      <img class="auth__logo" src="img/logo.svg" alt="Logotipo do sistema" width="158" height="158">
+      <p class="auth__frase" id="frase-lateral">“Esqueceu a senha? Informe seu e-mail e enviaremos um link para criar outra”</p>
+    </section>
+
+    <section class="auth__painel">
+      <div class="auth__avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c0-4 3.4-6.2 7.5-6.2s7.5 2.2 7.5 6.2"/></svg>
+      </div>
+
+      <div class="auth__form">
+        <h1 class="sr-only">Recuperar senha</h1>
+        <div id="mensagem" class="msg" hidden role="alert"></div>
+
+        <!-- Etapa 1: pedir o link por e-mail -->
+        <form id="form-recuperar" novalidate>
+          <div class="campo">
+            <label for="email">E-mail da sua conta</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required>
+          </div>
+          <div class="auth__botoes">
+            <button type="submit" id="btn-enviar-link" class="btn btn--escuro">Enviar link</button>
+            <a href="login.html" class="btn btn--escuro">Voltar ao login</a>
+          </div>
+        </form>
+
+        <!-- Etapa 2: aparece só depois de clicar no link do e-mail -->
+        <form id="form-nova-senha" hidden novalidate>
+          <div class="campo">
+            <label for="nova-senha">Nova senha</label>
+            <div class="campo__senha">
+              <input id="nova-senha" name="senha" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8">
+              <button type="button" class="campo__alternar" data-alternar-senha="nova-senha" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="nova-confirma">Confirma senha</label>
+            <div class="campo__senha">
+              <input id="nova-confirma" name="confirma" type="password" autocomplete="new-password" placeholder="Repita a nova senha" required>
+              <button type="button" class="campo__alternar" data-alternar-senha="nova-confirma" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+            </div>
+          </div>
+          <div class="auth__botoes">
+            <button type="submit" id="btn-salvar-senha" class="btn btn--escuro">Salvar nova senha</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

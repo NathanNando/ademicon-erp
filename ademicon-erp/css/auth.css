@@ -1,0 +1,86 @@
+/* =====================================================================
+   auth.css - TELAS DE LOGIN, CADASTRO E RECUPERAÇÃO DE SENHA
+   Duas metades: esquerda cinza (logo + frase) e direita com degradê
+   vinho → vermelho (formulário), como no design.
+   ===================================================================== */
+
+body.auth { background: var(--cor-cinza); }
+
+.auth__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+/* ---------- Lado esquerdo ---------- */
+.auth__lateral {
+  background: var(--cor-cinza);
+  padding: clamp(32px, 6vh, 56px) clamp(24px, 8%, 90px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth__logo { width: 158px; height: 158px; display: block; }
+
+.auth__frase {
+  margin-top: clamp(32px, 6vh, 56px);
+  align-self: flex-start;
+  max-width: 11em;
+  font-family: var(--fonte-texto);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  line-height: 1.2;
+  color: var(--cor-preto);
+}
+
+/* ---------- Lado direito ---------- */
+.auth__painel {
+  background: var(--gradiente-auth);
+  padding: clamp(28px, 6vh, 64px) clamp(20px, 6%, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(24px, 6vh, 56px);
+  color: var(--cor-branco);
+}
+
+.auth__avatar {
+  width: 150px; height: 150px; flex: none;
+  border: 2px solid var(--cor-preto);
+  border-radius: 50%;
+  color: var(--cor-preto);
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.auth__avatar svg { width: 82%; height: 82%; }
+
+.auth__form { width: 100%; max-width: 360px; display: grid; gap: 18px; }
+.auth__form > form { display: grid; gap: 18px; }
+
+/* Campos do design: caixa cinza, sem borda, texto preto */
+.auth__form .campo label { color: var(--cor-branco); font-size: 0.9375rem; }
+.auth__form .campo input {
+  background: var(--cor-cinza);
+  border: 2px solid transparent;
+  color: var(--cor-preto);
+  font-size: 1.0625rem;
+  border-radius: 2px;
+}
+.auth__form .campo input::placeholder { color: #4a4a4a; }
+.auth__form .campo input:focus { border-color: var(--cor-preto); }
+
+.auth__link {
+  justify-self: start;
+  color: var(--cor-branco);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.auth__botoes { display: grid; justify-items: center; gap: 14px; margin-top: 6px; }
+.auth__botoes .btn { width: 190px; border-radius: 2px; border-color: var(--cor-preto); }
+
+/* Mensagens sobre fundo vermelho: caixa clara para manter o contraste */
+.auth__form .msg { margin-bottom: 0; }

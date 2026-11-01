@@ -1,0 +1,113 @@
+/* =====================================================================
+   responsive.css - AJUSTES PARA TABLET, CELULAR E IMPRESSÃO
+   Carregue sempre por último, depois dos demais CSS.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------
+   Telas médias (notebooks pequenos / tablets na horizontal)
+   --------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .kpis, .kpis--5 { grid-template-columns: repeat(2, 1fr); }
+  .kpis--5 .kpi:last-child { grid-column: 1 / -1; }
+}
+
+/* ---------------------------------------------------------------
+   Tablets e celulares: o menu vira uma barra no topo
+   --------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .app__layout { grid-template-columns: 1fr; }
+
+  .menu {
+    position: sticky; top: 0; z-index: 50;
+    height: auto; flex-direction: row; flex-wrap: wrap;
+    justify-content: space-between; align-items: center;
+    padding: 8px 14px;
+    overflow: visible;
+  }
+  .menu__logo img { width: 52px; height: 52px; }
+
+  .menu__toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px;
+    background: var(--cor-preto); color: var(--cor-branco);
+    border: 0; border-radius: 8px; cursor: pointer;
+  }
+
+  .menu__nav { display: none; flex-basis: 100%; margin-top: 10px; padding-bottom: 6px; }
+  .menu.is-open .menu__nav { display: flex; }
+  .menu__nav li a { padding: 12px 10px; font-size: 1rem; }
+  .menu__usuario { margin-top: 12px; }
+
+  .app__principal { padding-top: 22px; }
+  .app__painel { min-height: 0; }
+
+  /* Autenticação: as duas metades ficam uma sobre a outra */
+  .auth__layout { grid-template-columns: 1fr; }
+  .auth__lateral { flex-direction: row; align-items: center; gap: 20px; padding: 24px; }
+  .auth__logo { width: 84px; height: 84px; flex: none; }
+  .auth__frase { margin: 0; font-size: 1.35rem; max-width: none; align-self: center; }
+  .auth__painel { padding-bottom: 48px; gap: 22px; }
+  .auth__avatar { width: 96px; height: 96px; }
+}
+
+/* ---------------------------------------------------------------
+   Celulares
+   --------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .grade-2 { grid-template-columns: 1fr; }
+  .grade-form { grid-template-columns: 1fr; }
+  .campo--busca { grid-column: auto; }
+  .kpi__valor { font-size: 2.4rem; }
+
+  /* Tabela de clientes vira uma lista de "fichas" */
+  .tabela-area { background: transparent; border: 0; overflow: visible; }
+  .tabela-area--curta { max-height: none; }
+  #tabela-clientes thead, .tabela--simples thead { position: absolute; left: -9999px; }
+  #tabela-clientes, #tabela-clientes tbody, #tabela-clientes tr, #tabela-clientes td { display: block; width: 100%; }
+  #tabela-clientes tr {
+    background: var(--cor-cartao); border: 1px solid #c2c2c2; border-radius: var(--raio);
+    margin-bottom: 12px; padding: 6px 4px;
+  }
+  #tabela-clientes td {
+    display: flex; justify-content: space-between; align-items: center; gap: 14px;
+    border-bottom: 1px solid #eee; text-align: right; padding: 9px 12px;
+  }
+  #tabela-clientes td:last-child { border-bottom: 0; }
+  #tabela-clientes td::before {
+    content: attr(data-label); font-weight: 700; color: var(--cor-texto-suave);
+    font-size: 0.75rem; text-transform: uppercase; text-align: left; flex: none;
+  }
+  #tabela-clientes td.vazio { display: block; text-align: center; }
+  #tabela-clientes td.vazio::before { content: none; }
+  #tabela-clientes .acoes { justify-content: flex-end; }
+
+  .dialogo__rodape .btn { flex: 1; }
+  .paginacao { justify-content: center; text-align: center; }
+  #toasts { left: 16px; right: 16px; max-width: none; }
+  .auth__form { max-width: none; }
+}
+
+@media (max-width: 420px) {
+  .kpis, .kpis--5 { grid-template-columns: 1fr; }
+  .auth__lateral { flex-direction: column; text-align: center; }
+  .auth__frase { text-align: center; }
+  .barras__linha { grid-template-columns: minmax(60px, 38%) 1fr auto; font-size: 0.8125rem; }
+}
+
+/* ---------------------------------------------------------------
+   IMPRESSÃO (relatórios): esconde menu, filtros e botões
+   --------------------------------------------------------------- */
+@media print {
+  body, .app__principal, .app__painel { background: #fff !important; color: #000; }
+  .no-print, .pular, #toasts, .paginacao { display: none !important; }
+  .app__layout { display: block; }
+  .app__principal { padding: 0; }
+  .app__titulo { color: #000; font-size: 2rem; text-align: left; margin-bottom: 8px; }
+  .app__painel { border: 0; padding: 0; min-height: 0; }
+  .cartao, .kpi { break-inside: avoid; box-shadow: none; }
+  .grade-2 { grid-template-columns: 1fr 1fr; }
+  .kpis--5 { grid-template-columns: repeat(5, 1fr); }
+  .tabela-area--curta { max-height: none; overflow: visible; }
+  .tabela th { position: static; background: #eee !important; color: #000; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seus clientes | ERP Ademicon</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,800&family=Khand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-pagina="clientes" class="app">
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div class="app__layout">
+    <aside id="menu-lateral" class="menu no-print"></aside>
+
+    <main id="conteudo" class="app__principal">
+      <h1 class="app__titulo">Seus Clientes</h1>
+
+      <section class="app__painel">
+
+        <!-- Busca, filtros e botão de novo cliente -->
+        <div class="filtros">
+          <div class="campo campo--busca">
+            <label for="busca">Pesquisar</label>
+            <input id="busca" type="search" placeholder="Nome, CPF ou CNPJ" autocomplete="off">
+          </div>
+          <div class="campo">
+            <label for="filtro-status">Status</label>
+            <select id="filtro-status">
+              <option value="">Todos</option>
+              <option value="ativo">Ativos</option>
+              <option value="inativo">Inativos</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="ordenacao">Ordenar por</label>
+            <select id="ordenacao">
+              <option value="recentes">Mais recentes</option>
+              <option value="antigos">Mais antigos</option>
+              <option value="nome_asc">Nome (A a Z)</option>
+              <option value="nome_desc">Nome (Z a A)</option>
+            </select>
+          </div>
+          <button type="button" id="btn-novo" class="btn btn--escuro filtros__novo">+ Novo cliente</button>
+        </div>
+
+        <div id="lista-erro" class="msg msg--erro" role="alert" hidden></div>
+
+        <!-- Tabela de clientes -->
+        <div class="tabela-area">
+          <table class="tabela" id="tabela-clientes" aria-busy="true">
+            <caption class="sr-only">Lista dos seus clientes</caption>
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF/CNPJ</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Status</th>
+                <th scope="col">Cadastro</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-clientes"></tbody>
+          </table>
+        </div>
+
+        <!-- Paginação -->
+        <nav class="paginacao" id="paginacao" aria-label="Paginação" hidden>
+          <span id="pag-info"></span>
+          <div class="paginacao__botoes">
+            <button type="button" class="btn btn--pequeno" id="pag-anterior">‹ Anterior</button>
+            <span id="pag-numero"></span>
+            <button type="button" class="btn btn--pequeno" id="pag-proxima">Próxima ›</button>
+          </div>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <!-- Janela: cadastrar / editar cliente -->
+  <dialog id="dialogo-cliente" class="dialogo" aria-labelledby="titulo-form">
+    <form id="form-cliente" novalidate autocomplete="off">
+      <header class="dialogo__topo">
+        <h2 id="titulo-form">Novo cliente</h2>
+        <button type="button" id="btn-fechar-form" class="dialogo__fechar" aria-label="Fechar">×</button>
+      </header>
+
+      <div class="dialogo__corpo">
+        <div id="form-mensagem" class="msg" role="alert" hidden></div>
+
+        <div class="grade-form">
+          <div class="campo">
+            <label for="f-tipo">Tipo de cliente</label>
+            <select id="f-tipo" name="tipo">
+              <option value="pf">Pessoa física</option>
+              <option value="pj">Pessoa jurídica</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="f-status">Status</label>
+            <select id="f-status" name="status">
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+
+          <div class="campo campo--cheio">
+            <label for="f-nome" id="rotulo-nome">Nome completo</label>
+            <input id="f-nome" name="nome" type="text" maxlength="150" required>
+            <small class="campo__erro" data-erro="nome"></small>
+          </div>
+
+          <div class="campo">
+            <label for="f-documento" id="rotulo-documento">CPF</label>
+            <input id="f-documento" name="documento" type="text" inputmode="numeric" placeholder="000.000.000-00" required>
+            <small class="campo__erro" data-erro="documento"></small>
+          </div>
+          <div class="campo">
+            <label for="f-nascimento" id="rotulo-nascimento">Data de nascimento</label>
+            <input id="f-nascimento" name="nascimento" type="date">
+            <small class="campo__erro" data-erro="nascimento"></small>
+          </div>
+
+          <div class="campo">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" maxlength="150" placeholder="cliente@email.com">
+            <small class="campo__erro" data-erro="email"></small>
+          </div>
+          <div class="campo">
+            <label for="f-telefone">Telefone</label>
+            <input id="f-telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000">
+            <small class="campo__erro" data-erro="telefone"></small>
+          </div>
+
+          <div class="campo">
+            <label for="f-cidade">Cidade</label>
+            <input id="f-cidade" name="cidade" type="text" maxlength="100">
+          </div>
+          <div class="campo">
+            <label for="f-estado">Estado</label>
+            <select id="f-estado" name="estado"></select>
+          </div>
+
+          <div class="campo campo--cheio">
+            <label for="f-endereco">Endereço</label>
+            <input id="f-endereco" name="endereco" type="text" maxlength="200" placeholder="Rua, número, bairro">
+          </div>
+
+          <div class="campo campo--cheio">
+            <label for="f-observacoes">Observações comerciais</label>
+            <textarea id="f-observacoes" name="observacoes" rows="3" maxlength="2000" placeholder="Interesses, valores, prazos, histórico de contato…"></textarea>
+            <small class="campo__erro" data-erro="observacoes"></small>
+          </div>
+        </div>
+      </div>
+
+      <footer class="dialogo__rodape">
+        <button type="button" id="btn-cancelar-form" class="btn">Cancelar</button>
+        <button type="submit" id="btn-salvar-cliente" class="btn btn--escuro">Salvar</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- Janela: confirmar exclusão -->
+  <dialog id="dialogo-exclusao" class="dialogo dialogo--pequeno" aria-labelledby="titulo-exclusao">
+    <div class="dialogo__topo"><h2 id="titulo-exclusao">Excluir cliente?</h2></div>
+    <div class="dialogo__corpo">
+      <p>Você vai excluir <strong id="nome-exclusao"></strong>. O cliente deixará de aparecer nas listas e nos relatórios.</p>
+    </div>
+    <div class="dialogo__rodape">
+      <button type="button" id="btn-cancelar-exclusao" class="btn">Cancelar</button>
+      <button type="button" id="btn-confirmar-exclusao" class="btn btn--perigo-solido">Sim, excluir</button>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/clientes.js"></script>
+</body>
+</html>

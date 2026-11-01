@@ -1,0 +1,125 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clientes | Ademicon ERP</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div>
+          <a class="brand" href="dashboard.html">
+            <span class="brand-mark">A</span>
+            <span>
+              Ademicon
+              <small>ERP CORPORATIVO</small>
+            </span>
+          </a>
+
+          <div class="nav-title">Menu principal</div>
+          <nav class="nav">
+            <a href="dashboard.html"><span class="nav-icon">▦</span>Dashboard</a>
+            <a class="active" href="clientes.html"><span class="nav-icon">♙</span>Clientes</a>
+            <a href="#" onclick="return false"><span class="nav-icon">▤</span>Propostas</a>
+            <a href="#" onclick="return false"><span class="nav-icon">↗</span>Vendas</a>
+            <a href="#" onclick="return false"><span class="nav-icon">◎</span>Metas</a>
+            <a href="#" onclick="return false"><span class="nav-icon">＄</span>Financeiro</a>
+            <a data-role="admin" hidden href="funcionarios.html"><span class="nav-icon">♧</span>Funcionários</a>
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">Ademicon ERP · Versão inicial</div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <strong>Clientes</strong><br />
+            <small>Cadastro e consulta de clientes</small>
+          </div>
+
+          <div class="user-pill">
+            <span class="avatar">A</span>
+            <span id="user-name">Funcionário</span>
+            <button class="button button-secondary button-small" data-logout>Sair</button>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="page-heading">
+            <div>
+              <h1>Seus clientes</h1>
+              <p>Cadastre e consulte os clientes da operação.</p>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <article class="panel form-panel">
+              <h2>Novo cliente</h2>
+
+              <form id="client-form">
+                <div class="field">
+                  <label for="client-name">Nome completo *</label>
+                  <input id="client-name" required minlength="2" placeholder="Nome do cliente" />
+                </div>
+
+                <div class="field">
+                  <label for="client-email">E-mail</label>
+                  <input id="client-email" type="email" placeholder="cliente@email.com" />
+                </div>
+
+                <div class="field">
+                  <label for="client-phone">Telefone</label>
+                  <input id="client-phone" placeholder="(00) 00000-0000" />
+                </div>
+
+                <div class="field">
+                  <label for="client-document">Documento</label>
+                  <input id="client-document" placeholder="CPF ou CNPJ" />
+                </div>
+
+                <p id="clients-message" class="message" role="status"></p>
+                <button class="button" type="submit">Salvar cliente</button>
+              </form>
+            </article>
+
+            <article class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h2>Clientes cadastrados</h2>
+                  <p>Consulta rápida por nome ou e-mail</p>
+                </div>
+              </div>
+
+              <div class="toolbar">
+                <input id="client-search" class="search" placeholder="Buscar por nome ou e-mail…" />
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>E-mail</th>
+                      <th>Telefone</th>
+                      <th>Documento</th>
+                    </tr>
+                  </thead>
+                  <tbody id="clients-body"></tbody>
+                </table>
+                <p id="clients-empty" class="empty" hidden>Nenhum cliente encontrado.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

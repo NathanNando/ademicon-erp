@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entrar | Ademicon ERP</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <section class="auth-brand-panel">
+        <div class="brand">
+          <span class="brand-mark">A</span>
+          <span>Ademicon <span style="font-weight: 400">| ERP</span></span>
+        </div>
+
+        <div>
+          <h1>Gestão inteligente para grandes conquistas.</h1>
+          <p>Centralize clientes, propostas, vendas e indicadores em um só lugar.</p>
+        </div>
+
+        <div class="auth-bottom" style="font-size: 12px; color: #ffd8d9;">
+          Plataforma interna de gestão · Ademicon
+        </div>
+      </section>
+
+      <section class="auth-side">
+        <div class="auth-card">
+          <h2>Bem-vindo de volta</h2>
+          <p class="subtle">Entre com suas credenciais corporativas para continuar.</p>
+
+          <form id="login-form">
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" type="email" autocomplete="username" placeholder="voce@empresa.com" required />
+            </div>
+
+            <div class="field">
+              <label for="password">Senha</label>
+              <input id="password" type="password" autocomplete="current-password" placeholder="Sua senha" required />
+            </div>
+
+            <p id="login-message" class="message" role="status"></p>
+            <button class="button" type="submit">Entrar no sistema</button>
+          </form>
+
+          <p class="auth-footer">
+             Primeiro acesso?
+                <a href="cadastro.html"
+                    style="color:#c81018;font-weight:700">
+               Criar minha conta
+                 </a>
+             <br><br>
+        </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
+

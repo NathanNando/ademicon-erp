@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatórios | ERP Ademicon</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,800&family=Khand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-pagina="relatorios" class="app">
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div class="app__layout">
+    <aside id="menu-lateral" class="menu no-print"></aside>
+
+    <main id="conteudo" class="app__principal">
+      <h1 class="app__titulo">Relatórios</h1>
+
+      <section class="app__painel" id="resultado" aria-busy="true">
+
+        <!-- Filtros -->
+        <form id="form-filtros" class="filtros no-print" novalidate>
+          <div class="campo">
+            <label for="r-de">Data inicial</label>
+            <input id="r-de" name="de" type="date">
+          </div>
+          <div class="campo">
+            <label for="r-ate">Data final</label>
+            <input id="r-ate" name="ate" type="date">
+          </div>
+          <div class="campo">
+            <label for="r-status">Status</label>
+            <select id="r-status" name="status">
+              <option value="">Todos</option>
+              <option value="ativo">Ativos</option>
+              <option value="inativo">Inativos</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="r-tipo">Tipo de cliente</label>
+            <select id="r-tipo" name="tipo">
+              <option value="">Todos</option>
+              <option value="pf">Pessoa física</option>
+              <option value="pj">Pessoa jurídica</option>
+            </select>
+          </div>
+          <div class="filtros__botoes">
+            <button type="submit" id="btn-gerar" class="btn btn--escuro">Gerar relatório</button>
+            <button type="button" id="btn-limpar" class="btn">Limpar</button>
+          </div>
+        </form>
+
+        <div id="relatorio-erro" class="msg msg--erro" role="alert" hidden></div>
+
+        <p class="resumo-filtros" id="resumo-filtros"></p>
+
+        <!-- Sem dados -->
+        <div id="sem-dados" class="cartao cartao--vazio" hidden>
+          <p class="vazio">Nenhum cliente encontrado para estes filtros. Ajuste o período ou cadastre clientes para gerar relatórios.</p>
+        </div>
+
+        <div id="conteudo-relatorio" hidden>
+          <!-- Exportação -->
+          <div class="barra-ferramentas no-print">
+            <label class="opcao">
+              <input type="checkbox" id="csv-documento-completo">
+              Incluir CPF/CNPJ completo no CSV
+            </label>
+            <div class="barra-ferramentas__botoes">
+              <button type="button" id="btn-csv" class="btn btn--escuro">Exportar CSV</button>
+              <button type="button" id="btn-imprimir" class="btn">Imprimir</button>
+            </div>
+          </div>
+
+          <!-- Totais -->
+          <section class="kpis kpis--5" aria-label="Totais do relatório">
+            <article class="kpi"><p class="kpi__rotulo">Total de clientes</p><p class="kpi__valor" id="r-total">0</p></article>
+            <article class="kpi kpi--ok"><p class="kpi__rotulo">Ativos</p><p class="kpi__valor" id="r-ativos">0</p></article>
+            <article class="kpi kpi--alerta"><p class="kpi__rotulo">Inativos</p><p class="kpi__valor" id="r-inativos">0</p></article>
+            <article class="kpi"><p class="kpi__rotulo">Pessoa física</p><p class="kpi__valor" id="r-pf">0</p></article>
+            <article class="kpi"><p class="kpi__rotulo">Pessoa jurídica</p><p class="kpi__valor" id="r-pj">0</p></article>
+          </section>
+
+          <div class="grade-2">
+            <section class="cartao cartao--largo" aria-labelledby="g-t-evolucao">
+              <h2 id="g-t-evolucao">Evolução dos cadastros por mês</h2>
+              <div id="g-evolucao"></div>
+              <p class="nota" id="nota-evolucao" hidden>Exibindo os últimos 24 meses do período.</p>
+            </section>
+
+            <section class="cartao" aria-labelledby="g-t-tipos">
+              <h2 id="g-t-tipos">Distribuição por tipo</h2>
+              <div id="g-tipos"></div>
+            </section>
+
+            <section class="cartao" aria-labelledby="g-t-estados">
+              <h2 id="g-t-estados">Clientes por estado</h2>
+              <div id="g-estados"></div>
+              <p class="nota" id="nota-estados" hidden>Exibindo os 10 estados com mais clientes.</p>
+            </section>
+
+            <section class="cartao" aria-labelledby="g-t-cidades">
+              <h2 id="g-t-cidades">Clientes por cidade</h2>
+              <div id="g-cidades"></div>
+              <p class="nota" id="nota-cidades" hidden>Exibindo as 10 cidades com mais clientes.</p>
+            </section>
+
+            <section class="cartao" aria-labelledby="g-t-periodo">
+              <h2 id="g-t-periodo">Cadastros por período</h2>
+              <div class="tabela-area tabela-area--curta">
+                <table class="tabela tabela--simples">
+                  <thead><tr><th scope="col">Mês</th><th scope="col">Cadastros</th><th scope="col">Acumulado</th></tr></thead>
+                  <tbody id="corpo-periodo"></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/relatorios.js"></script>
+</body>
+</html>
