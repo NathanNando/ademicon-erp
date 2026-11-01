@@ -67,7 +67,7 @@ body.auth { background: var(--cor-cinza); }
   border: 2px solid transparent;
   color: var(--cor-preto);
   font-size: 1.0625rem;
-  border-radius: 2px;
+  border-radius: 2%;
 }
 .auth__form .campo input::placeholder { color: #4a4a4a; }
 .auth__form .campo input:focus { border-color: var(--cor-preto); }
@@ -80,7 +80,7 @@ body.auth { background: var(--cor-cinza); }
 }
 
 .auth__botoes { display: grid; justify-items: center; gap: 14px; margin-top: 6px; }
-.auth__botoes .btn { width: 190px; border-radius: 2px; border-color: var(--cor-preto); }
+.auth__botoes .btn { width: 190px; border-radius: 5%; border-color: var(--cor-preto); }
 
 /* Mensagens sobre fundo vermelho: caixa clara para manter o contraste */
 .auth__form .msg { margin-bottom: 0; }
