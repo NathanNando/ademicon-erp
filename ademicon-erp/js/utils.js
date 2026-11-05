@@ -328,7 +328,7 @@ const Utils = (function () {
   };
 
   const icone = (nome) =>
-    `<svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[nome]}</svg>`;
+    `<png class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[nome]}</png>`;
 
   function montarMenu(paginaAtiva) {
     const aside = document.getElementById("menu-lateral");
@@ -343,7 +343,7 @@ const Utils = (function () {
 
     aside.innerHTML = `
       <a class="menu__logo" href="index.html" aria-label="Início">
-        <img src="img/logo.svg" alt="Logotipo do sistema" width="112" height="112">
+        <img src="img/Logo.png" alt="Logotipo do sistema" width="112" height="112">
       </a>
       <button class="menu__toggle" type="button" aria-expanded="false" aria-controls="menu-nav">
         <span class="sr-only">Abrir menu</span>
