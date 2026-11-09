@@ -18,7 +18,7 @@
 window.APP_CONFIG = {
   SUPABASE_URL: "https://pronxgphlphainfksbzz.supabase.co",
 
-  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByb254Z3BobHBoYWluZmtzYnp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM0MTQyMDksImV4cCI6MjEwODk5MDIwOX0.SzLByIrFkFb0gFBYCDB9YfHvokwGAlfdAfscS2Id3ww",  // começa com "eyJ..." ou "sb_publishable_..."
+  SUPABASE_ANON_KEY: "sb_publishable_AcfXhuu3D37DEsBJdU1pQw_qtMao_Le",  // começa com "eyJ..." ou "sb_publishable_..."
 
   // Quantidade de clientes por página na tela "Seus Clientes".
   PAGE_SIZE: 10,
