@@ -254,8 +254,9 @@ const Auth = (function () {
 
       Utils.carregandoBotao(botaoEmail, true, "Enviando...");
       try {
-        const { error } = await window.db.auth.resetPasswordForEmail(email, {
-          redirectTo: new URL("https://ademicon-erp-ademicon-erp.vercel.app/recuperar-senha.html", window.location.href).href,
+const { error } = await window.db.auth.resetPasswordForEmail(email, {
+  redirectTo: window.location.origin + window.location.pathname, // Isso pega automaticamente localhost ou Vercel correto
+});
         });
         if (error) throw error;
         // Mensagem neutra: não revela se o e-mail tem conta ou não.
