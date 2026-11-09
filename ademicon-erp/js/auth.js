@@ -254,11 +254,12 @@ const Auth = (function () {
 
       Utils.carregandoBotao(botaoEmail, true, "Enviando...");
       try {
-const { error } = await window.db.auth.resetPasswordForEmail(email, {
-  redirectTo: window.location.origin + window.location.pathname, // Isso pega automaticamente localhost ou Vercel correto
-});
+        const { error } = await window.db.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + window.location.pathname,
         });
+        
         if (error) throw error;
+
         // Mensagem neutra: não revela se o e-mail tem conta ou não.
         Utils.mostrarMensagem(
           msg,
