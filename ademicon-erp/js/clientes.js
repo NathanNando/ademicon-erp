@@ -374,34 +374,53 @@ async function salvarCliente(evento) {
 }
 
 /* =====================================================================
-   EXCLUSÃO (com confirmação)
+   EXCLUSÃO (com confirmação) - Versão Corrigida
    ===================================================================== */
 function abrirConfirmacao(id, nome) {
+  if (!id) {
+    console.error("Tentativa de exclusão sem ID válido.");
+    return;
+  }
   estado.clienteExcluindo = id;
   el("nome-exclusao").textContent = nome;
   el("dialogo-exclusao").showModal();
-  el("btn-cancelar-exclusao").focus(); // foco no "Cancelar" evita exclusão acidental
+  el("btn-cancelar-exclusao").focus();
 }
 
 async function excluirCliente() {
+  if (!estado.clienteExcluindo) {
+    Utils.avisar("Nenhum cliente selecionado para exclusão.", "erro");
+    return;
+  }
+
   const botao = el("btn-confirmar-exclusao");
   Utils.carregandoBotao(botao, true, "Excluindo...");
+
   try {
-    // Exclusão lógica: só marca a data. Nada é apagado de verdade.
-    const { error } = await window.db
+    // O .select() força o Supabase JS v2 a retornar o registro atualizado.
+    // Sem ele, atualizações bloqueadas por RLS retornam sucesso silencioso (0 linhas).
+    const { data, error } = await window.db
       .from("customers")
       .update({ deleted_at: new Date().toISOString() })
-      .eq("id", estado.clienteExcluindo);
+      .eq("id", estado.clienteExcluindo)
+      .select();
+
     if (error) throw error;
+
+    // Caso a lista retorne vazia, nenhuma linha foi afetada no banco.
+    if (!data || data.length === 0) {
+      throw new Error("Permissão negada no banco de dados (RLS) ou cliente não encontrado.");
+    }
 
     el("dialogo-exclusao").close();
     Utils.avisar("Cliente excluído.", "sucesso");
     carregarClientes();
   } catch (e) {
-    console.error(e);
+    console.error("Erro ao excluir cliente:", e);
     el("dialogo-exclusao").close();
     Utils.avisar(`Não foi possível excluir. ${Utils.traduzirErro(e)}`, "erro");
   } finally {
     Utils.carregandoBotao(botao, false);
+    estado.clienteExcluindo = null; // Reseta a variável de estado
   }
 }
